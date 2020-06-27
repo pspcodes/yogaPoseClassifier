@@ -157,7 +157,7 @@ function draw() {
   fill(255, 0, 0);
   noStroke();
   textSize(35);
-  textAlign(CENTER, CENTER);
+  textAlign(CENTER, BOTTOM);
   
   AssignLabel(poseLabel);
   text(poseName, width / 2, height / 2);
