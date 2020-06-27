@@ -9,10 +9,11 @@ let pose;
 let skeleton;
 
 let brain;
+let poseLabel = "";
+let poseName = "";
 
 let state = 'waiting';
 let targeLabel;
-
 
 function keyPressed() {
  if (key == 's') {
@@ -42,8 +43,7 @@ function keyPressed() {
 function gotResult(error, results) {  
  if (results[0].confidence > 0.75) {
    poseLabel = results[0].label.toUpperCase();
-   console.log(poseLabel);
-   //fill(50); text(poseLabel, 10, 10, 70, 80);
+   //console.log(poseLabel);
  }
  classifyPose();
 }
@@ -58,14 +58,14 @@ function classifyPose() {
      inputs.push(y);
    }
    brain.classify(inputs, gotResult);
-   console.log('inside brain.classify');
+   //console.log('inside brain.classify');
  } else {
    setTimeout(classifyPose, 100);
  }
 }
 
 function brainLoaded() {
- console.log('pose classification ready!');
+ //console.log('pose classification ready!');
  classifyPose();
 }
 
@@ -92,6 +92,7 @@ function setup() {
    weights: 'model/model.weights.bin',
  };
  brain.load(modelInfo, brainLoaded);
+  background(200);
 
 }
 
@@ -127,6 +128,7 @@ function finished() {
 
 
 function draw() {
+  push();
   translate(video.width, 0);
   scale(-1, 1);
   image(video, 0, 0, video.width, video.height);
@@ -146,6 +148,34 @@ function draw() {
       fill(0);
       stroke(255);
       ellipse(x, y, 16, 16);
-    }
+      
+      
+      }
   }
+  pop();
+  
+  fill(255, 0, 0);
+  noStroke();
+  textSize(35);
+  textAlign(CENTER, CENTER);
+  
+  AssignLabel(poseLabel);
+  text(poseName, width / 2, height / 2);
+}
+
+
+function AssignLabel(poseLabel) {
+  //console.log("AssignLabel function entered");
+ if (poseLabel == 'M')
+  {
+  poseName = "Tadasana"
+  }
+  else if (poseLabel == 'D')
+    {
+  poseName = "Adho Mukha Swanasana"
+  }
+  else if (poseLabel == 'C')
+    {
+  poseName = "Bhujangasana"
+  }    
 }
