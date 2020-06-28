@@ -160,7 +160,7 @@ function draw() {
   textAlign(CENTER, BOTTOM);
   
   AssignLabel(poseLabel);
-  text(poseName, width / 2, height / 2);
+  text(poseName, width / 2, height);
 }
 
 
